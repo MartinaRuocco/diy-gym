@@ -1,8 +1,7 @@
 numpy
-gym>=0.10
+gym<=0.15.3
 pybullet
 pyyaml
 tqdm
 argparse
 requests
-unittest
