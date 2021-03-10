@@ -111,15 +111,18 @@ class DIYGym(gym.Env, Receptor):
             if len(act_space.spaces):
                 self.action_space.spaces[name] = act_space
 
-        if self.flatten_observations:
-            lows, highs = [flatten(get_bounds_for_space(self.observation_space, opt)) for opt in [True, False]]
+        if self.flatten_observations:               
+            lows, highs = [flatten(get_bounds_for_space(self.observation_space, opt)) for opt in [True, False]] 
             self.original_observation_space = self.observation_space
-            self.observation_space = gym.spaces.Box(low=lows, high=highs)
+            # self.observation_space = gym.spaces.Box(low=lows, high=highs) 
+            self.observation_space = gym.spaces.Box(low=-np.inf, high=np.inf, shape=lows.shape) # quick fix for contain error
+
 
         if self.flatten_actions:
             lows, highs = (flatten(get_bounds_for_space(self.action_space, opt)) for opt in [True, False])
             self.original_action_space = self.action_space
-            self.action_space = gym.spaces.Box(low=lows, high=highs)
+            # self.action_space = gym.spaces.Box(low=lows, high=highs)
+            self.action_space = gym.spaces.Box(low=-1, high=1, shape=lows.shape, dtype="float32") # quick fix for normalisation warning
 
     def seed(self, seed=None):
         """Set the random seeds for the environment
