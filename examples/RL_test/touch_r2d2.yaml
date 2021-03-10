@@ -1,6 +1,6 @@
 max_episode_steps: 500
 flatten_observations: True
-# flatten_actions: True
+flatten_actions: True
 sum_rewards: True
 terminal_if_any: True
 # render: False 
